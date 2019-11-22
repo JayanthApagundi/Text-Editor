@@ -43,8 +43,7 @@ def findtext():
         label=messagebox.showinfo("Results",findstring+" has multiple occurences,"+str(occurence))        
     else:
         label=messagebox.showinfo("Results","Mentioned text NOT FOUND")
-    
-    
+        
 def newfile():
     if len(textArea.get('1.0',END+'-1c'))>0:
         if messagebox.askyesno("Save?","Do you wish to save?"):
@@ -60,26 +59,45 @@ def Help():
     help_text="""This is Text Editor,Where you can Create,
 Edit, Open and Modify the existing files, Save the modified files"""
     messagebox.showinfo("Help",help_text)
-    
+
+def cut():
+    textArea.event_generate("<<Cut>>")
+
+def copy():
+    textArea.event_generate("<<Copy>>")
+
+def paste():
+    textArea.event_generate("<<Paste>>")
+
+def bind_shortcuts():
+    textArea.bind('<Control+n>',newfile)
+    textArea.bind('<Control+o>',openfile)
+    textArea.bind('<Control+s>',savefile)
+    textArea.bind('<Control+Shift+S>',savefile)
+    textArea.bind('<Control+C>',copy)
+    textArea.bind('<Control+X>',cut)
+    textArea.bind('<Control+V>',paste)
+    textArea.bind('<Control+F>',findtext)
+
 fileMenu=Menu(menu)
 menu.add_cascade(label="File",menu=fileMenu)
-fileMenu.add_command(label="New",command=newfile)
-fileMenu.add_command(label="Open",command=openfile)
-fileMenu.add_command(label="Save",command=savefile)
-fileMenu.add_command(label="Save as..",command=savefile)
+fileMenu.add_command(label="New",accelerator="Ctrl+N",command=newfile)
+fileMenu.add_command(label="Open..",accelerator="Ctrl+O",command=openfile)
+fileMenu.add_command(label="Save",accelerator="Ctrl+S",command=savefile)
+fileMenu.add_command(label="Save as..",accelerator="Ctrl+Shift+S",command=savefile)
 fileMenu.add_separator()
 fileMenu.add_command(label="Exit",command=exit_editor)
 
 editMenu=Menu(menu)
 menu.add_cascade(label="Edit",menu=editMenu)
-editMenu.add_cascade(label="Cut")
-editMenu.add_cascade(label="Copy")
-editMenu.add_cascade(label="Paste")
-editMenu.add_cascade(label="Find..",command=findtext)
+editMenu.add_command(label="Cut",accelerator="Ctrl+X",command=cut)
+editMenu.add_command(label="Copy",accelerator="Ctrl+C",command=copy)
+editMenu.add_command(label="Paste",accelerator="Ctrl+V",command=paste)
+editMenu.add_command(label="Find..",accelerator="Ctrl+F",command=findtext)
 
 helpMenu=Menu(menu)
 menu.add_cascade(label="Help",menu=helpMenu)
-helpMenu.add_command(label="View help",command=Help)
+helpMenu.add_command(label="View help",accelerator="Ctrl+H",command=Help)
 
 aboutMenu=Menu(menu)
 menu.add_cascade(label="About",menu=aboutMenu)
