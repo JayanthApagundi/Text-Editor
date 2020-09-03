@@ -1,8 +1,9 @@
 # Text-Editor <br>
 
-**This is Text Editor written in python using the GUI Tkinter tool kit and concepts of files handling** <br>
+**This is Text Editor written in Python using the GUI Tkinter tool kit and Concepts of Files Handling** <br>
 
 **Output:** <br>
+<br>
 **Initial:**<br>
 ![](/Output/1.JPG)<br>
 
